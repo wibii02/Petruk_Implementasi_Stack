@@ -58,4 +58,39 @@ vector<string> infixToPostfix(const vector<string>& infix) {
 
     return postfix;
 }
+double evaluatePostfix(const vector<string>&pstfix){
+    stack<double> stack;
 
+for (const string& token : pestfix){
+    if (isdigit(token[0])|| token[0]=='.'){
+    stack.push(stod(token));
+    }else {
+        double right = stack.top(); stack.pop();
+        double left = stack.top(); stack.pop();
+        if (token == "+") stack.push(left + right);
+            else if (token == "-") stack.push(left - right);
+            else if (token == "*") stack.push(left * right);
+            else if (token == "/") stack.push(left / right);
+        }
+    }
+    return stack.pop();
+}
+int main (){
+    string inputString = "12 * 5 + 7 - (23 + 2) / 5 -4";
+    vector<srting> infix = strToifix(inputString);
+    vektor<string> postfix = infixTopostfix(infix);
+    double result = evaluatePostfix(postfix);
+
+    cout<< "Infix :";
+    for (const string& token : infix) cout<< token << " ";
+    cout<< endl;
+
+    cout<< "Postfix :";
+    for (const string& token : postfix) cout<< token << " ";
+    cout<< endl;
+
+    cout<< "Result :";
+    cout<< result;
+    cout<< endl;
+return 0;
+}
