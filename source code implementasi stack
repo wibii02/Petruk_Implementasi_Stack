@@ -25,3 +25,37 @@ vector<string> strToInfix(const string& inputString) {
       if (!token.empty()) infix.push_back(token);
       return infix;
 }
+
+vector<string> infixToPostfix(const vector<string>& infix) {
+    vector<string> postfix;
+    stack<string> stack;
+    unordered_map<string, int> precedence = {{"+", 1}, {"-", 1}, {"*", 2}, {"/",2}};
+
+    for (const string& token : infix ) {
+        if (isdigit(token[0]) || token[0] == '.') {
+            postfix.push_back(token);
+        } else if (token == "(" ) {
+            stack.push(token);
+        } else if (token == ")" ) {
+            while (!stack.empty() && stack.top() != "(" ) {
+                postfix.push_back(stack.top());
+                stack.pop();
+            }
+            stack.pop();
+        } else {
+            while (!stack.empty() && stack.top() != "(" && presedence [stack.top()] >= precedence[token]) {
+                postfix.push_back(stack.top());
+                stack.pop();
+            }
+            stack.push(token);
+        }
+    }
+
+    while (!stack.empty()) {
+        postfix.push_back(stack.top());
+        stack.pop();
+    }
+
+    return postfix;
+}
+
