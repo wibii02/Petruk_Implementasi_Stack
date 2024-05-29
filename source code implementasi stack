@@ -1,1 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <string>
+#include <unordered_map>
 
+using namesoace std;
+
+vector<string> strToInfix(const string& inputString) {
+    vector<string> infix;
+    string token;
+    for (char ch : inputString) {  
+        if (isdigit (ch) || ch == '.') {
+            token += ch;
+        }else{
+          if (!token.empty()) {
+            infix.push_back(token);
+            token.clear();
+          }
+          if (ch != '') {
+            infix.push_back(string(1,ch));
+          }
+        }
+      }
+      if (!token.empty()) infix.push_back(token);
+      return infix;
+}
